@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Custom rounded corners rect</_name>
+  <id>org.inkscape.render.rounded</id>
+  <dependency type="executable" location="extensions" _description="Generate rectangle with rounded corners as a path.">rounded_corners.py</dependency>
+  <dependency type="executable" location="extensions">simplepath.py</dependency>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+
+  <param name="top-left" type="float" _gui-text="top-left">0</param>
+  <param name="top-right" type="float" _gui-text="top-right">0</param>
+  <param name="bottom-right" type="float" _gui-text="bottom-right">0</param>
+  <param name="bottom-left" type="float" _gui-text="bottom-left">0</param>
+  <param name="remove-original" type="boolean" _gui-text="remove original rect">false</param>
+
+  <effect needs-live-preview="false">
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu _name="Render"/>
+    </effects-menu>
+  </effect>
+
+  <script>
+    <command reldir="extensions" interpreter="python">rounded_corners.py</command>
+  </script>
+</inkscape-extension>
+ 
