@@ -8,15 +8,23 @@ This extension allows the user to draw a rectangle with rounded corners as a pat
 
 It also provides an option to remove the selected rectangle when it's done.
 
+The extension works with multiple rectangles selected, too, processing each.
+
 ## Installation
 
 Use the included `setup.py` script:
 
     python setup.py install
 
+This will copy the necessary files to your extensions directory:
+* Windows - `%APPDATA%\inkscape\extensions` (e.g. `C:\Users\User\AppData\Roaming\inkscape\extensions`)
+* Linux - `$HOME/.config/inkscape/extensions`
+
 ## Usage
 
-Select rectangles in the document, in the menu select `Render->Custom rounded corners rect`.
+* Select rectangles in the document, in the menu select `Render->Custom rounded corners rect`.
+* Input a radius for each corner in the popup dialog.
+
 
 ## License
 
