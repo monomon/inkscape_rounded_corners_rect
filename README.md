@@ -1,3 +1,5 @@
+![Rounded corners demo](https://media.inkscape.org/media/resources/render/rounded_corners_demo.png)
+
 # Custom rounded corners rect
 
 Ever wanted to make some of these fancy folder flap top-side only rounded corners?
