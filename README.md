@@ -1,4 +1,4 @@
-![Rounded corners demo](https://media.inkscape.org/media/resources/render/rounded_corners_demo.png)
+![Rounded corners demo](https://media.inkscape.org/media/resources/render/rounded_corners_demo_W5NKSkM.png)
 
 # Custom rounded corners rect
 
