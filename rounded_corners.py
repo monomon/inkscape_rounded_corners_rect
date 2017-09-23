@@ -40,6 +40,10 @@ class RoundCorners(inkex.Effect):
                                      action="store", type="inkbool",
                                      default=False, help="Remove original rect")
 
+        self.OptionParser.add_option("--inherit-style", dest="inheritstyle",
+                                     action="store", type="inkbool",
+                                     default=True, help="Inherit style from rect")
+
     def effect(self):
         tl = float(self.options.tl)
         tr = float(self.options.tr)
@@ -87,12 +91,14 @@ class RoundCorners(inkex.Effect):
                 d.append(["z", []])
 
                 pathEl.set("d", simplepath.formatPath(d))
-                # copy the styles
-                pathEl.set("style", node.get("style"))
 
-                # set the same css class if there is one
-                if node.get("class"):
-                    pathEl.set("class", node.get("class"))
+                if self.options.inheritstyle:
+                    # copy the styles
+                    pathEl.set("style", node.get("style"))
+
+                    # set the same css class if there is one
+                    if node.get("class"):
+                        pathEl.set("class", node.get("class"))
 
                 if self.options.remove:
                     node.getparent().remove(node)
