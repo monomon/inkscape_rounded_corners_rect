@@ -37,7 +37,7 @@ def package():
 
     import subprocess
     cmd = ["tar", "--create", "--gzip",
-           "--exclude-vcs", "--exclude", "*.swp", "--exclude", "*.pyc",
+           "--exclude-vcs", "--exclude", "*.swp", "--exclude", "*.pyc", "--exclude", "*~",
            "--directory", "../", "--verbose",
            "--file", "../inkscape_rounded_corners_rect.tar.gz",
            os.path.basename(sys.path[0])
