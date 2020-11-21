@@ -15,36 +15,38 @@ __email__ = "mois@monomon.me"
 __copyright__ = "Copyright (C) 2017 Mois Moshev"
 __license__ = "GPL"
 
-import simplepath
-import inkex
 import gettext
+import inkex
+import inkex.localization
+from lxml import etree
 
-inkex.localize()
+inkex.localization.localize()
+
 
 class RoundCorners(inkex.Effect):
     def __init__(self):
         inkex.Effect.__init__(self)
-        self.OptionParser.add_option("--top-left", dest="tl",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("--top-left", dest="tl",
+                                     action="store", type=float,
                                      default=0.0, help="top-left")
 
-        self.OptionParser.add_option("--top-right", dest="tr",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("--top-right", dest="tr",
+                                     action="store", type=float,
                                      default=0.0, help="top-right")
 
-        self.OptionParser.add_option("--bottom-right", dest="br",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("--bottom-right", dest="br",
+                                     action="store", type=float,
                                      default=0.0, help="bottom-right")
 
-        self.OptionParser.add_option("--bottom-left", dest="bl",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("--bottom-left", dest="bl",
+                                     action="store", type=float,
                                      default=0.0, help="bottom-left")
-        self.OptionParser.add_option("--remove-original", dest="remove",
-                                     action="store", type="inkbool",
+        self.arg_parser.add_argument("--remove-original", dest="remove",
+                                     action="store", type=inkex.Boolean,
                                      default=False, help="Remove original rect")
 
-        self.OptionParser.add_option("--inherit-style", dest="inheritstyle",
-                                     action="store", type="inkbool",
+        self.arg_parser.add_argument("--inherit-style", dest="inheritstyle",
+                                     action="store", type=inkex.Boolean,
                                      default=True, help="Inherit style from rect")
 
     @staticmethod
@@ -52,7 +54,7 @@ class RoundCorners(inkex.Effect):
         x, y, w, h = bbox
         tl, tr, br, bl = corner_radii
 
-        pathEl = inkex.etree.SubElement(parent, inkex.addNS("path", "svg"))
+        pathEl = etree.SubElement(parent, inkex.addNS("path", "svg"))
         d = []
 
         if tl > 0:
@@ -83,9 +85,9 @@ class RoundCorners(inkex.Effect):
             d.append(["Q", [x, y, x + tl, y]])
         else:
             d.append(["L", [x, y]])
-        d.append(["z", []])
+            d.append(["z", []])
 
-        pathEl.set("d", simplepath.formatPath(d))
+        pathEl.set("d", str(inkex.Path(d)))
 
         return pathEl
 
@@ -97,7 +99,10 @@ class RoundCorners(inkex.Effect):
 
         paths = []
 
-        for id, node in self.selected.iteritems():
+        print(self.svg.selected)
+        for nodeName in self.svg.selected:
+            node = self.svg.selected[nodeName]
+            # print(dir(self.svg.selected[node]))
             if node.tag == inkex.addNS("rect", "svg"):
                 x = float(node.get("x", 0))
                 y = float(node.get("y", 0))
@@ -105,10 +110,10 @@ class RoundCorners(inkex.Effect):
                 h = float(node.get("height"))
 
                 pathEl = RoundCorners.createRoundedRect(
-                        node.getparent(),
-                        (x, y, w, h),
-                        (tl, tr, br, bl)
-                    )
+                    node.getparent(),
+                    (x, y, w, h),
+                    (tl, tr, br, bl)
+                )
                 if self.options.inheritstyle:
                     # copy the styles
                     pathEl.set("style", node.get("style"))
@@ -116,6 +121,7 @@ class RoundCorners(inkex.Effect):
                     # set the same css class if there is one
                     if node.get("class"):
                         pathEl.set("class", node.get("class"))
+
                 paths.append(pathEl)
 
                 if self.options.remove:
@@ -126,4 +132,4 @@ class RoundCorners(inkex.Effect):
 
 if __name__ == "__main__":
     e = RoundCorners()
-    e.affect()
+    e.run()

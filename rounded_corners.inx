@@ -10,7 +10,7 @@
   <param name="top-right" type="float" _gui-text="top-right" max="999">0</param>
   <param name="bottom-right" type="float" _gui-text="bottom-right" max="999">0</param>
   <param name="bottom-left" type="float" _gui-text="bottom-left" max="999">0</param>
-  <param name="remove-original" type="boolean" _gui-text="remove original rect">false</param
+  <param name="remove-original" type="boolean" _gui-text="remove original rect">false</param>
   <param name="inherit-style" type="boolean" _gui-text="inherit style of rect">true</param>
 
   <effect needs-live-preview="false">
@@ -24,4 +24,3 @@
     <command reldir="extensions" interpreter="python">rounded_corners.py</command>
   </script>
 </inkscape-extension>
- 
