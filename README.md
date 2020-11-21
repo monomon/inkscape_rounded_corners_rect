@@ -27,6 +27,9 @@ This will copy the necessary files to your extensions directory:
 * Select rectangles in the document, in the menu select `Render->Custom rounded corners rect`.
 * Input a radius for each corner in the popup dialog.
 
+## Updates
+
+* 21.10.2020: Updated to work with Inkscape 1.0
 
 ## License
 
